@@ -1321,12 +1321,14 @@ class PubSub(object):
             self.patterns.add(pattern)
         return self.execute_command('PSUBSCRIBE', *patterns)
 
-    def punsubscribe(self, patterns=[]):
+    def punsubscribe(self, patterns=None):
         """
         Unsubscribe from any channel matching any pattern in ``patterns``.
         If empty, unsubscribe from all channels.
         """
-        if isinstance(patterns, basestring):
+        if patterns == None:
+            patterns = []
+        elif isinstance(patterns, basestring):
             patterns = [patterns]
         for pattern in patterns:
             try:
@@ -1343,12 +1345,14 @@ class PubSub(object):
             self.channels.add(channel)
         return self.execute_command('SUBSCRIBE', *channels)
 
-    def unsubscribe(self, channels=[]):
+    def unsubscribe(self, channels=None):
         """
         Unsubscribe from ``channels``. If empty, unsubscribe
         from all channels
         """
-        if isinstance(channels, basestring):
+        if channels == None:
+            channels = []
+        elif isinstance(channels, basestring):
             channels = [channels]
         for channel in channels:
             try:
